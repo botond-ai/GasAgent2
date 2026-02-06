@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tf_state" {
-  bucket = "terraform-state-640706953781-GasAgent2"
+  bucket = "terraform-state-640706953781-gasagent2"
   force_destroy = true
   tags = {
     Name = "tf-state-bucket"

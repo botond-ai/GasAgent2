@@ -86,10 +86,10 @@ jobs:
       - name: Safety Check - Verify Remote State Backend Exists
         run: |
           echo "🔍 Checking if remote state backend infrastructure exists..."
-          if aws s3api head-bucket --bucket terraform-state-640706953781-ai-agent-infra 2>/dev/null; then
+          if aws s3api head-bucket --bucket terraform-state-640706953781-gasagent2 2>/dev/null; then
             echo "✅ S3 bucket exists"
           else
-            echo "❌ ERROR: S3 bucket 'terraform-state-640706953781-ai-agent-infra' does not exist!"
+            echo "❌ ERROR: S3 bucket 'terraform-state-640706953781-gasagent2' does not exist!"
             echo ""
             echo "Please run the bootstrap job first:"
             echo "1. Go to Actions tab"
@@ -109,7 +109,7 @@ jobs:
         working-directory: ${{ env.TERRAFORM_DIR }}
         run: |
           terraform init -reconfigure \
-            -backend-config="bucket=terraform-state-640706953781-ai-agent-infra" \
+            -backend-config="bucket=terraform-state-640706953781-gasagent2" \
             -backend-config="key=cost-optimization/terraform.tfstate" \
             -backend-config="region=eu-central-1" \
             -backend-config="dynamodb_table=terraform-state-lock" \
