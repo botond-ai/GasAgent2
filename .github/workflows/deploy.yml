@@ -7,6 +7,8 @@ on:
 
 env:
   AWS_REGION: eu-north-1
+    AWS_REGION: eu-central-1
+            if aws s3api head-bucket --bucket terraform-state-640706953781-gasagent2 2>/dev/null; then
   ECR_REPOSITORY: ai-agent-app
   ECS_CLUSTER: ai-agent-tutorial-cluster
   ECS_SERVICE: ai-agent-tutorial-service
@@ -86,9 +88,10 @@ jobs:
       - name: Safety Check - Verify Remote State Backend Exists
         run: |
           echo "🔍 Checking if remote state backend infrastructure exists..."
-          if aws s3api head-bucket --bucket terraform-state-640706953781-gasagent2 2>/dev/null; then
+          if aws s3api head-bucket --bucket terraform-state-640706953781-gasagent2-north1 2>/dev/null; then
             echo "✅ S3 bucket exists"
           else
+            echo "❌ ERROR: S3 bucket 'terraform-state-640706953781-gasagent2-north1' does not exist!"
             echo "❌ ERROR: S3 bucket 'terraform-state-640706953781-gasagent2' does not exist!"
             echo ""
             echo "Please run the bootstrap job first:"
@@ -109,9 +112,11 @@ jobs:
         working-directory: ${{ env.TERRAFORM_DIR }}
         run: |
           terraform init -reconfigure \
-            -backend-config="bucket=terraform-state-640706953781-gasagent2" \
+            -backend-config="bucket=terraform-state-640706953781-gasagent2-north1" \
             -backend-config="key=cost-optimization/terraform.tfstate" \
-            -backend-config="region=eu-north-1" \
+            -backend-config="bucket=terraform-state-640706953781-gasagent2" \
+            -backend-config="region=eu-central-1" \
+                      if aws dynamodb describe-table --table-name terraform-state-lock --region eu-central-1 2>/dev/null; then
             -backend-config="dynamodb_table=terraform-state-lock" \
             -backend-config="encrypt=true"
       - name: Import Existing Resources (if any)

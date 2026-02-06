@@ -43,7 +43,7 @@ resource "aws_ecs_service" "main" {
   desired_count   = 1
   launch_type     = "FARGATE"
   network_configuration {
-    subnets          = ["subnet-043f9839f1c9c8f7f"]
+    subnets          = ["subnet-015c5678674f58a8e"]
     assign_public_ip = true
   }
   depends_on = [aws_ecs_cluster.main]
