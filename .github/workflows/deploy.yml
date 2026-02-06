@@ -99,7 +99,7 @@ jobs:
             exit 1
           fi
           
-          if aws dynamodb describe-table --table-name terraform-state-lock --region eu-central-1 2>/dev/null; then
+          if aws dynamodb describe-table --table-name terraform-state-lock --region eu-north-1 2>/dev/null; then
             echo "✅ DynamoDB table exists"
           else
             echo "⚠️  WARNING: DynamoDB table 'terraform-state-lock' does not exist!"
@@ -111,7 +111,7 @@ jobs:
           terraform init -reconfigure \
             -backend-config="bucket=terraform-state-640706953781-gasagent2" \
             -backend-config="key=cost-optimization/terraform.tfstate" \
-            -backend-config="region=eu-central-1" \
+            -backend-config="region=eu-north-1" \
             -backend-config="dynamodb_table=terraform-state-lock" \
             -backend-config="encrypt=true"
       - name: Import Existing Resources (if any)
