@@ -1,3 +1,13 @@
+      - name: Debug - ECS Service Events
+        run: |
+          echo "=== ECS Service Events (last 10) ==="
+          aws ecs describe-services \
+            --cluster $ECS_CLUSTER \
+            --services $ECS_SERVICE \
+            --query "services[0].events[0:10]" \
+            --region $AWS_REGION \
+            --output table || true
+          echo "====================================="
 name: GasAgent
 
 on:
