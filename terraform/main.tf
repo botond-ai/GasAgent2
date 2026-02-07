@@ -1,10 +1,19 @@
+variable "vpc_id" {
+  description = "VPC ID for ALB and ECS service."
+  type        = string
+}
+
+variable "security_groups" {
+  description = "Security group IDs for ALB."
+  type        = list(string)
+}
 data "aws_lb" "main" {
   name = "ai-agent-tutorial-alb"
 }
 
 data "aws_lb_target_group" "main" {
   name = "ai-agent-tutorial-tg"
-  load_balancer_arn = data.aws_lb.main.arn
+  # Remove load_balancer_arn, not supported
 }
 
 data "aws_lb_listener" "main" {
