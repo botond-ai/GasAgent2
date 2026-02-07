@@ -69,6 +69,11 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.0
+      - name: Debug - List existing ALBs
+        run: |
+          echo "=== Existing Application Load Balancers ==="
+          aws elbv2 describe-load-balancers --region ${{ env.AWS_REGION }} --output table || true
+          echo "=========================================="
       - name: Debug - Verify AWS Identity
         run: |
           echo "=== AWS Caller Identity ==="
