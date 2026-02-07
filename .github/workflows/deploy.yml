@@ -12,11 +12,7 @@ env:
   ECS_SERVICE: ai-agent-tutorial-service
   TERRAFORM_DIR: terraform
   TERRAFORM_BOOTSTRAP_DIR: terraform-bootstrap
-  ECR_REPOSITORY: ai-agent-app
-  ECS_CLUSTER: ai-agent-tutorial-cluster
-  ECS_SERVICE: ai-agent-tutorial-service
-  TERRAFORM_DIR: terraform
-  TERRAFORM_BOOTSTRAP_DIR: terraform-bootstrap
+ 
 
 permissions:
   id-token: write  # Required for OIDC authentication
