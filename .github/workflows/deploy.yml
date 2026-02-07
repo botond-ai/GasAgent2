@@ -115,12 +115,12 @@ jobs:
             -backend-config="region=eu-central-1" \
             -backend-config="dynamodb_table=terraform-state-lock" \
             -backend-config="encrypt=true"
-      - name: Import Existing Resources (if any)
+      - name: Remove ALB resources from Terraform state (TEMPORARY)
         working-directory: ${{ env.TERRAFORM_DIR }}
         run: |
-          chmod +x import_resources.sh
-          ./import_resources.sh || echo "Some imports failed, continuing with plan..."
-        continue-on-error: true
+          terraform state rm aws_lb.main || true
+          terraform state rm aws_lb_target_group.main || true
+          terraform state rm aws_lb_listener.main || true
       - name: Terraform Refresh
         working-directory: ${{ env.TERRAFORM_DIR }}
         run: terraform refresh
