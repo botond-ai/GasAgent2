@@ -1,3 +1,12 @@
+variable "vpc_id" {
+  description = "VPC ID for ALB and ECS service."
+  type        = string
+}
+
+variable "security_groups" {
+  description = "Security group IDs for ALB."
+  type        = list(string)
+}
 variable "aws_region" {
   description = "AWS region for backend."
   type        = string
