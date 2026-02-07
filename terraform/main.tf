@@ -30,7 +30,15 @@ resource "aws_ecs_task_definition" "main" {
     "essential": true,
     "portMappings": [
       { "containerPort": 80, "hostPort": 80 }
-    ]
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/ai-agent-task",
+        "awslogs-region": "eu-central-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
   }
 ]
 DEFS
