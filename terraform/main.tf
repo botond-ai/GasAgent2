@@ -22,32 +22,30 @@ resource "aws_ecs_task_definition" "main" {
   cpu                      = "256"
   memory                   = "512"
   execution_role_arn       = "arn:aws:iam::640706953781:role/ecsTaskExecutionRole"
-  container_definitions    = <<DEFS
-[
-  {
-    "name": "backend",
-    "image": "640706953781.dkr.ecr.eu-central-1.amazonaws.com/ai-agent-app:latest",
-    "essential": true,
-    "portMappings": [
-      { "containerPort": 80, "hostPort": 80 }
-    ],
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-group": "/ecs/ai-agent-task",
-        "awslogs-region": "eu-central-1",
-        "awslogs-stream-prefix": "ecs"
+  container_definitions = jsonencode([
+    {
+      name      = "backend"
+      image     = "640706953781.dkr.ecr.eu-central-1.amazonaws.com/ai-agent-app:latest"
+      essential = true
+      portMappings = [
+        { containerPort = 80, hostPort = 80 }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/ecs/ai-agent-task"
+          awslogs-region        = "eu-central-1"
+          awslogs-stream-prefix = "ecs"
+        }
       }
-    },
-    "environment": [
-      {
-        "name": "OPENAI_API_KEY",
-        "value": "${OPENAI_API_KEY}"
-      }
-    ]
-  }
-]
-DEFS
+      environment = [
+        {
+          name  = "OPENAI_API_KEY"
+          value = var.openai_api_key
+        }
+      ]
+    }
+  ])
 }
 
 resource "aws_ecs_service" "main" {
