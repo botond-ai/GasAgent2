@@ -138,11 +138,20 @@ app.add_middleware(
 )
 
 
+
 from fastapi import status, Response
 
+
+# ECS Health check endpoint
+@app.get("/health", status_code=status.HTTP_200_OK)
+async def health_check(response: Response):
+    """ECS health check endpoint."""
+    response.status_code = status.HTTP_200_OK
+    return {"status": "healthy"}
+
+# Root endpoint (optional health/info)
 @app.get("/", status_code=status.HTTP_200_OK)
 async def root(response: Response):
-    """Health check endpoint."""
     response.status_code = status.HTTP_200_OK
     return {"status": "ok", "message": "AI Agent API is running"}
 
