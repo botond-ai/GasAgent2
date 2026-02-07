@@ -84,5 +84,5 @@ resource "aws_ecs_service" "main" {
     container_name   = "backend"
     container_port   = 80
   }
-  depends_on = [aws_ecs_cluster.main, data.aws_lb_listener.main]
+  depends_on = [aws_ecs_cluster.main, aws_lb_listener.main]
 }
