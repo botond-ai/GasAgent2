@@ -5,8 +5,14 @@ resource "aws_lb_target_group" "main" {
   vpc_id   = var.vpc_id
   target_type = "ip"
 }
-data "aws_lb" "main" {
-  name = "ai-agent-tutorial-alb"
+
+resource "aws_lb" "main" {
+  name               = "ai-agent-tutorial-alb"
+  internal           = false
+  load_balancer_type = "application"
+  subnets            = ["subnet-015c5678674f58a8e"]
+  security_groups    = var.security_groups
+  enable_deletion_protection = false
 }
 
 
