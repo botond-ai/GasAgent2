@@ -1,3 +1,16 @@
+data "aws_lb" "main" {
+  name = "ai-agent-tutorial-alb"
+}
+
+data "aws_lb_target_group" "main" {
+  name = "ai-agent-tutorial-tg"
+  load_balancer_arn = data.aws_lb.main.arn
+}
+
+data "aws_lb_listener" "main" {
+  load_balancer_arn = data.aws_lb.main.arn
+  port              = 80
+}
 module "bootstrap" {
   source = "../terraform-bootstrap"
   aws_region = var.aws_region
@@ -58,5 +71,10 @@ resource "aws_ecs_service" "main" {
     subnets          = ["subnet-015c5678674f58a8e"]
     assign_public_ip = true
   }
-  depends_on = [aws_ecs_cluster.main]
+  load_balancer {
+    target_group_arn = data.aws_lb_target_group.main.arn
+    container_name   = "backend"
+    container_port   = 80
+  }
+  depends_on = [aws_ecs_cluster.main, data.aws_lb_listener.main]
 }
