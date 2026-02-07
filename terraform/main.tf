@@ -1,9 +1,5 @@
 resource "aws_lb_target_group" "main" {
   name     = "ai-agent-tutorial-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-  target_type = "ip"
 }
 variable "vpc_id" {
   description = "VPC ID for ALB and ECS service."
@@ -18,10 +14,6 @@ data "aws_lb" "main" {
   name = "ai-agent-tutorial-alb"
 }
 
-data "aws_lb_target_group" "main" {
-  name = "ai-agent-tutorial-tg"
-  # Remove load_balancer_arn, not supported
-}
 
 data "aws_lb_listener" "main" {
   load_balancer_arn = data.aws_lb.main.arn
@@ -88,7 +80,7 @@ resource "aws_ecs_service" "main" {
     assign_public_ip = true
   }
   load_balancer {
-    target_group_arn = data.aws_lb_target_group.main.arn
+    target_group_arn = aws_lb_target_group.main.arn
     container_name   = "backend"
     container_port   = 80
   }
