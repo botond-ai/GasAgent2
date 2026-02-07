@@ -97,5 +97,6 @@ resource "aws_ecs_service" "main" {
     container_name   = "backend"
     container_port   = 80
   }
+  health_check_grace_period_seconds = 60
   depends_on = [aws_ecs_cluster.main, aws_lb_listener.main]
 }
