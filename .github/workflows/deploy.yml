@@ -128,7 +128,7 @@ jobs:
           terraform state rm aws_lb_listener.main || true
       - name: Terraform Refresh
         working-directory: ${{ env.TERRAFORM_DIR }}
-        run: terraform refresh
+        run: tterraform refresh -lock=false
         env:
           TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
       - name: Terraform Plan
