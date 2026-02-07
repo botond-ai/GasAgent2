@@ -10,7 +10,7 @@ resource "aws_lb" "main" {
   name               = "ai-agent-tutorial-alb"
   internal           = false
   load_balancer_type = "application"
-  subnets            = ["subnet-015c5678674f58a8e"]
+  subnets            = ["subnet-0199792f289a6963c", "subnet-015c5678674f58a8e"]
   security_groups    = var.security_groups
   enable_deletion_protection = false
 }
