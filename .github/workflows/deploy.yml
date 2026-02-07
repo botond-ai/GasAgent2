@@ -135,7 +135,7 @@ jobs:
         working-directory: ${{ env.TERRAFORM_DIR }}
         env:
           TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -lock=false
       - name: Terraform Apply
         working-directory: ${{ env.TERRAFORM_DIR }}
         env:
