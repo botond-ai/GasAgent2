@@ -1,3 +1,8 @@
+variable "project_name" {
+  description = "Project name for resource naming."
+  type        = string
+  default     = "GasAgent2"
+}
 variable "vpc_id" {
   description = "VPC ID for ALB and ECS service."
   type        = string
