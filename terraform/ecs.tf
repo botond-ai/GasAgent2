@@ -111,10 +111,6 @@ resource "aws_ecs_service" "app" {
     container_name   = "app"
     container_port   = 8000
   }
-  deployment_configuration {
-    maximum_percent         = 200
-    minimum_healthy_percent = 100
-  }
   depends_on = [aws_lb_listener.http]
   tags = {
     Name = "${var.project_name}-ecs-service"
