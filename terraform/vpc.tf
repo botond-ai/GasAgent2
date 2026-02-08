@@ -1,3 +1,5 @@
+# Get available availability zones for subnet placement
+data "aws_availability_zones" "available" {}
 # VPC létrehozása - saját izolált hálózat
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr  # pl. "10.0.0.0/16"
