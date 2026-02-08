@@ -22,3 +22,9 @@ variable "openai_api_key" {
   description = "OpenAI API key for ECS backend container."
   type        = string
 }
+
+variable "environment" {
+  description = "Deployment environment (e.g., production, staging)."
+  type        = string
+  default     = "production"
+}
