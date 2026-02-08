@@ -65,16 +65,16 @@ resource "aws_ecs_task_definition" "app" {
       ]
       environment = [
         {
-          name  = "OPENAI_API_KEY"
-          value = var.openai_api_key
+          name  = "LOG_LEVEL"
+          value = "INFO"
         },
         {
           name  = "ENVIRONMENT"
           value = var.environment
         },
         {
-          name  = "LOG_LEVEL"
-          value = "INFO"
+          name  = "OPENAI_API_KEY"
+          value = var.openai_api_key
         }
       ]
       logConfiguration = {
