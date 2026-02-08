@@ -172,16 +172,6 @@ jobs:
             --cluster $ECS_CLUSTER \
             --services $ECS_SERVICE \
             --region $AWS_REGION
-      - name: ECS Service Events (last 10)
-        run: |
-          echo "=== ECS Service Events (last 10) ==="
-          aws ecs describe-services \
-            --cluster $ECS_CLUSTER \
-            --services $ECS_SERVICE \
-            --query "services[0].events[0:10]" \
-            --region $AWS_REGION \
-            --output table || true
-          echo "====================================="
       - name: Get Application URL
         run: |
           ALB_DNS=$(aws elbv2 describe-load-balancers \
