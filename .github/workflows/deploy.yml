@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: eu-central-1
-  ECR_REPOSITORY: ai-agent-app
+  ECR_REPOSITORY: gasagent2-app
   ECS_CLUSTER: ai-agent-tutorial-cluster
   ECS_SERVICE: ai-agent-tutorial-service
   TERRAFORM_DIR: terraform
