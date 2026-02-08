@@ -65,6 +65,10 @@ resource "aws_ecs_task_definition" "app" {
       ]
       environment = [
         {
+          name  = "OPENAI_API_KEY"
+          value = var.openai_api_key
+        },
+        {
           name  = "ENVIRONMENT"
           value = var.environment
         },
