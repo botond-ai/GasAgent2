@@ -149,6 +149,13 @@ async def health_check(response: Response):
     response.status_code = status.HTTP_200_OK
     return {"status": "healthy"}
 
+# ALB health check endpoint (alias)
+@app.get("/healthz", status_code=status.HTTP_200_OK)
+async def healthz_check(response: Response):
+    """ALB health check endpoint alias."""
+    response.status_code = status.HTTP_200_OK
+    return {"status": "healthy"}
+
 # Root endpoint (optional health/info)
 @app.get("/", status_code=status.HTTP_200_OK)
 async def root(response: Response):
