@@ -58,10 +58,10 @@ resource "aws_ecs_task_definition" "app" {
       name  = "app"
       image = "${aws_ecr_repository.app.repository_url}:latest"
       portMappings = [
-        {
-          containerPort = 8000
-          protocol      = "tcp"
-        }
+          {
+            containerPort = 80
+            protocol      = "tcp"
+          }
       ]
       environment = [
         {
@@ -86,7 +86,7 @@ resource "aws_ecs_task_definition" "app" {
         }
       }
       healthCheck = {
-        command     = ["CMD-SHELL", "curl -f http://localhost:8000/healthz || exit 1"]
+        command     = ["CMD-SHELL", "curl -f http://localhost:80/healthz || exit 1"]
         interval    = 30
         timeout     = 5
         retries     = 3
@@ -113,7 +113,7 @@ resource "aws_ecs_service" "app" {
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
     container_name   = "app"
-    container_port   = 8000
+    container_port   = 80
   }
   depends_on = [aws_lb_listener.http]
   tags = {
