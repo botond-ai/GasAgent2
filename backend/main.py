@@ -70,14 +70,10 @@ async def lifespan(app: FastAPI):
     conversation_repo = FileConversationRepository(data_dir="data/sessions")
 
     # Initialize Regulation RAG client
-    import pathlib
-    backend_dir = pathlib.Path(__file__).parent.absolute()
-    docker_pdf_path = pathlib.Path("/app/gaztorveny.pdf")
-    local_pdf_path = backend_dir.parent / "gaztorveny.pdf"
-    regulation_pdf_path = docker_pdf_path if docker_pdf_path.exists() else local_pdf_path
-
+    # Use Docker path if exists, otherwise fallback to local dev path
+    pdf_path = "/app/gaztorveny.pdf" if os.path.exists("/app/gaztorveny.pdf") else "backend/data/files/gaztorveny.pdf"
     regulation_client = RegulationRAGClient(
-        pdf_path=str(regulation_pdf_path),
+        pdf_path=pdf_path,
         openai_api_key=openai_api_key,
         persist_directory="./chroma_db"
     )

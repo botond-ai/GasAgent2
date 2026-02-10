@@ -22,6 +22,9 @@ RUN pip install --upgrade pip \
 
 # Copy application code
 COPY . .
+
+# Copy gaztorveny.pdf to the expected location for the backend
+COPY data/files/gaztorveny.pdf /app/gaztorveny.pdf
 COPY data/files /app/data/files
 
 # Create data directories
