@@ -131,15 +131,18 @@ jobs:
         run: terraform refresh -lock=false
         env:
           TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          TF_VAR_eia_api_key: ${{ secrets.EIA_API_KEY }}
       - name: Terraform Plan
         working-directory: ${{ env.TERRAFORM_DIR }}
         env:
           TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          TF_VAR_eia_api_key: ${{ secrets.EIA_API_KEY }}
         run: terraform plan -out=tfplan -lock=false
       - name: Terraform Apply
         working-directory: ${{ env.TERRAFORM_DIR }}
         env:
           TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          TF_VAR_eia_api_key: ${{ secrets.EIA_API_KEY }}
         run: terraform apply -auto-approve tfplan
       - name: Login to Amazon ECR
         id: login-ecr
