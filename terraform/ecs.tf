@@ -85,6 +85,10 @@ resource "aws_ecs_task_definition" "app" {
         {
           name  = "OPENAI_API_KEY"
           value = var.openai_api_key
+        },
+        {
+          name  = "EIA_API_KEY"
+          value = var.eia_api_key
         }
       ]
       logConfiguration = {

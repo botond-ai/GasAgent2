@@ -1,3 +1,7 @@
+variable "eia_api_key" {
+  description = "EIA API key for ECS backend container."
+  type        = string
+}
 variable "project_name" {
   description = "Project name for resource naming."
   type        = string
