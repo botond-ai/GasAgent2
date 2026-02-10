@@ -22,7 +22,7 @@ RUN pip install --upgrade pip \
 
 # Copy application code
 COPY . .
-COPY data/files/gaztorveny.pdf /app/data/files/gaztorveny.pdf
+COPY data/files /app/data/files
 
 # Create data directories
 RUN mkdir -p data/users data/sessions data/files
